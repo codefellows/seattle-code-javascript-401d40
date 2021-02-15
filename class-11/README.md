@@ -1,8 +1,6 @@
-# Authentication
+# Event Driven Applications
 
-Restricting access to information online is one of the foundational paradigms of the internet. Whether it's your online bank account, facebook profile, or a one-time viewing of a document to sign, getting "logged in" to a website is an everyday activity for almost every internet user.
-
-Today, we'll be looking at ways to create an account and securely authenticate a user using their chosen username and password
+Today, we will leverage the ability of Javascript to raise events, monitor events, and perform operations in response to events occurring.
 
 ## Learning Objectives
 
@@ -10,14 +8,14 @@ Today, we'll be looking at ways to create an account and securely authenticate a
 
 #### Describe and Define
 
-- The authentication process
-- cryptographic hash and cypher algorithms
+- Events
+- ... specifically, the Node event system
+- Event driven architecture
 
 #### Execute
 
-- Model a User and safely store their sensitive data
-- Implement a Basic Authorization parser
-- Use debugging and troubleshooting skills
+- Implement the Observer pattern using Publish/Subscribe
+- Create a modular, event based system.A
 
 ## Today's Outline
 
@@ -25,88 +23,52 @@ Today, we'll be looking at ways to create an account and securely authenticate a
 
 ## Notes
 
-### Basic Authorization
+### Event Driven Programming
 
-Basic Authorization is a common method used to send a username and password in an HTTP request. The username and password are joined with a ':' then "base64 encoded" and placed after the string 'Basic '. The resulting string is set to the value of an Authorization header.
+Nearly everything in the world is "Event Driven"
 
-A Server can decode the Basic Authorization header to retrieve the username and password. If the combination is validated, the server generally responds back to the client with some sort of validation response (token or key) so that the client can re-authenticate without having to continually send the username:password combination in plain text over the internet.
+Humans respond to events billions of times every day. Your eyes react to light. You hit the brakes when the car in front of you slows down. Your skin forms a blister when burned.
 
-> NOTE: base64 encoding is not a form of encryption. The client and server must use HTTPS to protect the username and password as it travels across the network.
+Machines can be event driven as well. Self driving cars can stay in their lane by "reading" the road lines in real time. Thermostats constantly turn the heat/air on or off in response to the temperature.
 
-In a node application, we can use a node module - `base-64` to do the work of decoding password strings coming from a login attempt in a browser
+How can we leverage this in a software application?
+
+- Everything in JS is an object
+- Most actions in JS are event driven
+  - UI Events
+  - Express Routes
+  - (soon) Model Lifecycle Hooks
+  - (later) React ... everything
+- Now, we harness that power
+
+### Emitting Events
+
+> **I just did something important and I want the whole world to know about it**
+
+`express-server.js`
 
 ```javascript
-let base64 = require('base-64');
-
-let string = 'someusername:P@55w0rD!';
-let encoded = base64.encode(string); // c29tZXVzZXJuYW1lOlBANTV3MHJEIQ==
-let decoded = base64.decode(encoded); // someusername:P@55w0rD!
+let SQL = "DELETE FROM sometable WHERE id = $1"
+let values = [request.query.id];
+client.query(SQL, values)
+  .then( results => {
+    emit('delete', request.query.id);
+    res.send('Record Deleted')
+  });
 ```
 
-### Password Encryption
+> **Something happened that I need to care about and do something with**
 
-- Never (ever) store passwords in plain text
-- Encryption is a one-way string transformation
-- Use a secure hashing algorithm (such as bcrypt) to transform/encrypt passwords
-- The only way to validate a password is to re-hash it and see if the hashes match or are equivalent
+`some-other-module.js`
 
 ```javascript
-const bcrypt = require('bcrypt');
-
-let password = 'supersecret';
-
-// Create a new hashed password
-bcrypt.hash(password,5)
-  .then( hashedPassword => {
-    console.log(hashedPassword)
-  })
-
-
-// Validate a password
-bcrypt.compare( password, hashedPassword )
-  .then( isValid => {
-    console.log(isValid)
-  })
-```
-
-### Mongoose Static and Instance Methods
-
-Given a mongoose schema, we can create our own methods that add functionality not provided by mongoose itself.
-
-```javascript
-// food-model.js
-const mongoose = require('mongoose');
-const food = mongoose.Schema({
-  { name: {type String, required: true }},
-  { calories: {type Number, required: true }},
-})
-module.exports = mongoose.model('food', food);
-```
-
-#### Instance methods work on instances ...
-
-```javascript
-// food-model.js
-food.methods.points = function() {
-  this.points = Math.floor(this.calories/10);
-}
-
-// other module ...
-let carrot = new Food({name:'carrot', calories: 100})
-carrot.save();
-console.log( carrot.points() ); // 10
-```
-
-### Static Methods operate at the model level, before (or without) an instance
-
-These are useful for looking things up (like a user), pre-loading queries, validating an instance, etc. Generally, use these to return instances or collections
-
-```javascript
-// food-model.js
-food.statics.getCarrots = function() {
-  return this.find({name:'carror'})
-}
-
-// other module ...
-let carrots = food.getCarrots();
+// Whenever the "delete" event has been emitted anywhere in my code base
+// Run this function
+events.on('delete', (data) => {
+    sendEmail({
+        to: 'admin@here.com',
+        subject: 'Someone deleted part of the database',
+        body: `Record id: ${data} was removed`
+    });
+});
 ```

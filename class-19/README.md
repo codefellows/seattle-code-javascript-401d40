@@ -1,6 +1,9 @@
-# Message Queues
+# AWS: Events
 
-To this point, we've built servers based on internal event processing, generically with TCP, and network event handling in Real Time with Socket.io. In this class, we'll be exploring ways to "Queue" messages for guaranteed delivery
+AWS provides 2 different means of providing inter-application messaging
+
+- SNS - Simple Notification Service
+- SQS - Simple Queue Service
 
 ## Learning Objectives
 
@@ -8,53 +11,126 @@ To this point, we've built servers based on internal event processing, generical
 
 #### Describe and Define
 
-- Messaging Queues
-  - Ordered (FIFO)
-  - Unordered
-- Architecture for a Message Queue server
+- The differences between SNS and SQS
+- Use cases for each
+- FIFO Queues
+- The publisher/subscriber relationship
 
 #### Execute
 
-- Build an event based messaging server
-- Manage a subscription/event queue
+- Create a notification topic that triggers an action
+- Create a Queue that retains messages
 
 ## Today's Outline
 
 <!-- To Be Completed By Instructor -->
 
+
 ## Notes
 
-### Implementing Message Queues
+### SNS - Working with Notifications in Code
 
-A Queue server runs independently, and is tasked with routing events and messaging between clients.
+#### Publishing (Pushing) a message with SNS
 
-- Any connected client can "publish" a message into the server.
-- Any connected client can "subscribe" to receive messages by type.
+This sample application contacts SNS and publishes a single message
 
-The Queue server has the ability to see which clients are connected,  to which Queues they are attached and further, to which events they are subscribed.
+```
+const AWS = require('aws-sdk');
+AWS.config.update({region: 'us-west-2'});
 
-The Queue server is tasked with receiving any published message and then distributing it out to all connected and subscribed clients. It must further ensure that subscribed clients can "catch up" and pull down any messages that they might have missed during a period of disconnection with the server
+const topic = 'arn:aws:sns:us-west-2:335083857671:TaskComplete';
 
-- `message` -  a package of information, categorized by queue (bucket) and event name
-- `queue` - a list of (bucket) of events
-  - i.e. "Database Events", "Filesystem Events", "Network Events", etc
-- `event` - What event has happened
-  - i.e. "delete, add, update, connection lost, error", etc.
-- `payload` - data associated with the event
-  - i.e. "record id, record information, error text", etc.
+var sns = new AWS.SNS();
+const params = {
+  Message: 'Hey there, Person!',
+  TopicArn: topic
+};
+sns.publish(params).promise()
+  .then( data => console.log(data) )
+  .catch(console.error);
+```
 
-Implementing a Queue involves architecting a solution to the following high level questions
 
-1. How do we know which clients are subscribed to which buckets and which events?
-1. How do we know that clients have received all of the messages to buckets/events which they've subscribed
-1. How do we re-deliver messages that were never received
+#### Subscribe to a topic
 
-We will need to:
+A node application such as below will continually run, waiting on notifications to be pushed to it, and will respond as they occur
 
-1. Manage a list of subscribers
-1. Manage a list of queues
-1. Manage a list of events within the queues
-1. Deliver messages to each subscriber
-1. Provide a mechanism for subscribers to notify the system that they got a particular message
-1. Remove the message from the subscribers' message/event queue once it's been delivered
-1. Allow subscribers to "catch up" on any missed messages by looping the above
+```
+const AWS = require('aws-sdk');
+AWS.config.update({region: 'us-west-2'});
+const sns = new AWS.SNS();
+
+const topic = 'arn:aws:sns:us-west-2:335083857671:TaskComplete';
+
+var params = {
+  Protocol: 'sms',
+  TopicArn: topic,
+  Endpoint: '+12065551212',
+  ReturnSubscriptionArn: true || false,
+};
+
+sns.subscribe(params).promise()
+  .then( data => console.log('OK', data) )
+  .catch( console.error );
+```
+
+
+### SQS - Queues
+
+#### Publishing with Node.js
+
+```javascript
+'use strict';
+
+const Producer = require('sqs-producer');
+
+const queue = 'https://sqs.us-west-2.amazonaws.com/335083857671/sqs-testing';
+
+// create simple producer
+const producer = Producer.create({
+  queueUrl: queue,
+  region: 'us-west-2'
+});
+
+const message = {
+  id: Math.random(), // should be a uuid or some other unique identifier
+  body:`This is message ${++counter}`,
+};
+
+producer.send(message, function(err,msg) {
+  if (err) { console.log(err); }
+  else {
+    console.log('Sent', message);
+  }
+});
+```
+
+
+#### Subscribing with Node.js
+
+```javascript
+'use strict';
+
+const { Consumer } = require('sqs-consumer');
+
+const app = Consumer.create({
+  queueUrl: 'https://sqs.us-west-2.amazonaws.com/335083857671/sqs-testing',
+  handleMessage: handler,
+});
+
+function handler(message) {
+  console.log(message.Body);
+}
+
+app.on('error', (err) => {
+  console.error(err.message);
+});
+
+app.on('processing_error', (err) => {
+  console.error(err.message);
+});
+
+app.start();
+
+
+```

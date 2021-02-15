@@ -1,4 +1,4 @@
-# Readings: HTTP and REST
+# Readings: Authentication
 
 Below you will find some reading material, code samples, and some additional resources that support today's topic and the upcoming lecture.
 
@@ -8,21 +8,19 @@ Review the Submission Instructions for guidance on completing and submitting thi
 
 In your reading notes page for this class, provide answers to the following prompts. Cite any external sources
 
-1. Define three related pieces of data in a possible application. An example for a store application might be Product, Category and Department. Describe the constraints and rules on each piece of data and how you would relate these pieces to each other. For example, each Product has a Category and belongs in a Department.
-1. What is the advantage of an ORM, like Mongoose?
-1. How does the repository pattern compare with an ORM?
-1. When making a repository/facade, what flexibility do you gain?
-1. Name 3 cloud based NoSQL Databases
+1. Explain what a "Singleton" is (in Computer Science terms)
+1. Explain how the Singleton pattern can be used with Node modules, specifically with classes
+1. If you were tasked with building a middleware system like Express uses, what approach might you take to construct/operate it?
 
 ### Document the following Vocabulary Terms
 
 | Term                            |
 | ------------------------------- |
-| lifecycle                       |
-| collections                     |
-| the "Repository" design pattern |
-| mongoose middleware             |
-| Object Relation Mapping (ORM)   |
+| Router Middleware               |
+| Dynamic Module Loading          |
+| Singleton Pattern               |
+| CRUD -> REST Method Matches     |
+| Mock Testing                    |
 
 ## Preview
 
@@ -34,13 +32,7 @@ Skim the following materials in preparation for the upcoming lecture. Note the f
 
 ### Preparation Materials
 
-- [http and rest](https://www.youtube.com/watch?v=Q-BpqyOT3a8){:target="_blank"} (video)
-- [http basics](https://code.tutsplus.com/tutorials/http-the-protocol-every-web-developer-must-know-part-1--net-31177){:target="_blank"}
-- [what is ReST](https://restfulapi.net/){:target="_blank"}
-
-## Bookmark
-
-- [swagger documentation](https://swagger.io/docs/){:target="_blank"}
-- [swagger editor](https://editor.swagger.io){:target="_blank"}
-- [http reference](https://code-maze.com/the-http-reference/){:target="_blank"}
-- [rest reference](https://www.restapitutorial.com/lessons/httpmethods.html){:target="_blank"}
+- [Securing Passwords](https://thehackernews.com/2014/04/securing-passwords-with-bcrypt-hashing.html){:target="_blank"}
+- [Basic Auth](https://en.wikipedia.org/wiki/Basic_access_authentication){:target="_blank"}
+- [OWASP auth cheatsheet](https://www.owasp.org/index.php/Authentication_Cheat_Sheet){:target="_blank"}
+- [bcrypt docs](https://www.npmjs.com/package/bcrypt){:target="_blank"}

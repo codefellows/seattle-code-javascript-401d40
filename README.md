@@ -6,10 +6,10 @@ This course is divided into 8 Modules, extending over 2 sections.
 
 The first half of the course (the "Backend Section") is made up of 4 modules:
 
-- Data Modeling
-- Express API Server
+- REST APIs
 - Authentication and Authorization
 - Realtime (Sockets, Messages, Queuing)
+- Serverless Applications
 
 The second half of the course (the "Frontend Section") is comprised of 4 modules, focused on React
 
@@ -107,12 +107,12 @@ It's advisable that students first make an new organization in Github (perhaps c
 
 ## Course At a Glance
 
-| Module 1 (Project: Notesy)                        | Module 2 (Project: Dynamic API)                  | Module 3 (Project: Authenticated API)         | Module 4 (Project: CAPS)                    |
+| Module 1 (Project: Dynamic API)                   | Module 2 (Project: Authenticated API)            | Module 3 (Project: CAPS Delivery System)      | Module 4 (Project: Serverless)              |
 |---------------------------------------------------|--------------------------------------------------|-----------------------------------------------|---------------------------------------------|
-| [01: JS Fundamentals](./class-01/README.md)       | [06: HTTP & REST](./class-06/README.md)          | [11: Authentication](./class-11/README.md)    | [16: Events](./class-16/README.md)          |
-| [02: Classes/Inheritance](./class-02/README.md)   | [07: Express](./class-07/README.md)              | [12: OAuth](./class-12/README.md)             | [17: TCP Protocol](./class-17/README.md)    |
-| [03: Data Modeling](./class-03/README.md)         | [08: REST & Data Modeling](./class-08/README.md) | [13: Bearer Auth](./class-13/README.md)       | [18: Socket.io](./class-18/README.md)       |
-| [04: Data Modeling](./class-04/README.md)         | [09: API Server](./class-09/README.md)           | [14: RBAC / ACL](./class-14/README.md)        | [19: Socket.io](./class-19/README.md)       |
+| [01: JS Fundamentals](./class-01/README.md)       | [06: Basic Authentication](./class-06/README.md) | [11: Events](./class-11/README.md)            | [16: Serverless Apps](./class-16/README.md) |
+| [02: Express, Testing](./class-02/README.md)      | [07: Bearer Authentication](./class-07/README.md)| [12: Socket.io](./class-12/README.md)         | [17: Lambda & S3](./class-17/README.md)     |
+| [03: REST APIs](./class-03/README.md)             | [08: Authentication / ACL](./class-08/README.md) | [13: Message Queues](./class-13/README.md)    | [18: Serverless API](./class-18/README.md)  |
+| [04: Data Modeling](./class-04/README.md)         | [09: Authenticated API](./class-09/README.md)    | [14: Event Driven Apps](./class-14/README.md) | [19: Cloud Events](./class-19/README.md)    |
 | 05: Career Coaching, DS&A                         | 10: Career Coaching, DS&A                        | 15: Career Coaching, DS&A                     | [20: Project Preparation                    |
 | Module 5: Mid-Term Projects                       |                                                  |                                               |                                             |
 | Module 6 (Project: RESTy)                         | Module 7 (Project: TO DO, Bootstrap)             | Module 8 (Project: e-Commerce, Material UI)   | Module 9 (Project: Personal Projects)       |

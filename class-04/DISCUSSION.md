@@ -1,4 +1,4 @@
-# Readings: Advanced Mongo/Mongoose
+# Readings: Data Modeling
 
 Below you will find some reading material, code samples, and some additional resources that support today's topic and the upcoming lecture.
 
@@ -8,27 +8,26 @@ Review the Submission Instructions for guidance on completing and submitting thi
 
 In your reading notes page for this class, provide answers to the following prompts. Cite any external sources
 
-1. Why would a developer choose to make data models?
-2. What purpose do CRUD operations serve?
-3. What kind of database is Postgres? What kind of database is MongoDB?
-4. What is Mongoose and why do we need it?
+1. Name 3 advantages to Test Driven Development
+1. In what case would you need to use `beforeEach()` or `afterEach()` in a test suite?
+1. What is one downside of Test Driven Development
+1. What's the primary difference between ES6 Classes and Constructor/Prototype Classes?
+1. Why REST?
 
 ### Document the following Vocabulary Terms
 
-| Term                            |
-| ------------------------------- |
-| database                        |
-| data model                      |
-| CRUD                            |
-| schema                          |
-| sanitize                        |
-| Structured Query Language (SQL) |
-| Non SQL (NoSQL)                 |
-| MongoDB                         |
-| Mongoose                        |
-| record                          |
-| document                        |
-| Object Relation Mapping (ORM)   |
+| Term                              |
+| --------------------------------- |
+| functional programming            |
+| object-oriented programming (OOP) |
+| class                             |
+| `super`                           |
+| `this`                            |
+| Test Driven Development (TDD)     |
+| Jest                              |
+| Continuous Integration (CI)       |
+| REST                              |
+| Data Model                       |
 
 ## Preview
 
@@ -40,6 +39,10 @@ Skim the following materials in preparation for the upcoming lecture. Note the f
 
 ### Preparation Materials
 
-- [The Repository Design Pattern](https://cubettech.com/resources/blog/introduction-to-repository-design-pattern/){:target="_blank"}
-- [In Memory Database Testing](https://dev.to/paulasantamaria/testing-node-js-mongoose-with-an-in-memory-database-32np){:target="_blank"}
-  - [mongo memory server](https://www.npmjs.com/package/mongodb-memory-server){:target="_blank"}
+- [sql vs nosql](https://www.youtube.com/watch?v=ZS_kXvOeQ5Y){:target="_blank"} (Video)
+- [nosql vs sql](https://www.thegeekstuff.com/2014/01/sql-vs-nosql-db/?utm_source=tuicool){:target="_blank"}
+- [nosql modeling techniques](https://highlyscalable.wordpress.com/2012/03/01/nosql-data-modeling-techniques/){:target="_blank"}
+
+## Bookmark
+
+- [mongoose api](https://mongoosejs.com/docs/api.html#Model){:target="_blank"}

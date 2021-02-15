@@ -1,4 +1,4 @@
-# Readings: Socket.io
+# Readings: AWS: API, Dynamo and Lambda
 
 Below you will find some reading material, code samples, and some additional resources that support today's topic and the upcoming lecture.
 
@@ -8,22 +8,18 @@ Review the Submission Instructions for guidance on completing and submitting thi
 
 In your reading notes page for this class, provide answers to the following prompts. Cite any external sources
 
-1. What is the benefit of transforming data into packets?
-1. UDP is often refereed to as a connectionless protocol. Why is this?
-1. Can a socket server application have multiple socket connections?
-1. Can a socket connection application be connected to multiple socket servers?
-1. Can an application be both a socket server and a socket connection?
+1. What's the difference between a FIFO and a standard queue?
+1. How can the server be assured a message was properly received?
+1. What classic design pattern is best represented by event driven programming?
+1. How do you test an event driven system?
 
 ### Document the following Vocabulary Terms
 
 | Term                            |
 | ------------------------------- |
-| OSI Model                       |
-| TCP Model                       |
-| TCP                             |
-| UDP                             |
-| Packets                         |
-| Socket                          |
+| Serverless Functions            |
+| Cloud Storage                   |
+| CDN                             |
 
 ## Preview
 
@@ -35,16 +31,8 @@ Skim the following materials in preparation for the upcoming lecture. Note the f
 
 ### Preparation Materials
 
-## Additional Resources
-
-### Videos
-
-### Bookmark / Skim
-
-- [Web Sockets](https://en.wikipedia.org/wiki/WebSocket){:target="_blank"}
-- [Socket.io Tutorial](https://www.tutorialspoint.com/socket.io/){:target="_blank"}
-- [Socket.io vs Web Sockets](https://www.educba.com/websocket-vs-socket-io/){:target="_blank"}
-- [Socket.io Documentation](https://socket.io/docs/){:target="_blank"}
-- [Socket.io Server API](https://socket.io/docs/server-api){:target="_blank"}
-- [Socket.io Client API](https://socket.io/docs/client-api){:target="_blank"}
-- [Socket Testing Tool](https://amritb.github.io/socketio-client-tool/){:target="_blank"}
+- [AWS API Gateway Overview](https://www.serverless.com/amazon-api-gateway){:target="_blank"}
+- [AWS API Gateway](https://aws.amazon.com/api-gateway/){:target="_blank"}
+- [AWS DynamoDB Guide](https://www.dynamodbguide.com/what-is-dynamo-db/){:target="_blank"}
+- [AWS DynamoDB](https://aws.amazon.com/dynamodb/){:target="_blank"}
+- [Dynamoose](https://dynamoosejs.com/getting_started/Introduction){:target="_blank"}

@@ -1,6 +1,6 @@
-# Socket.io
+# AWS: API, Dynamo and Lambda
 
-Description Here
+Mirroring our previous efforts in Express, today, we will be wiring up a completely serverless, let fully functional, CRUD-Enabled API.
 
 ## Learning Objectives
 
@@ -8,14 +8,16 @@ Description Here
 
 #### Describe and Define
 
-- Web Sockets
-- Socket.io
-- Network Events
+- AWS API Gateway
+- How to trigger Lambda Functions in response to an API request
+- The differences between HTTP and REST APIs at AWS
+- The differences between DynamoDB and Mongo
 
 #### Execute
 
-- Implement a standalone Socket.io server for handling events and real time messaging.
-- Use events to properly route incoming messages and payload
+- Creation of a DynamoDB Table
+- Creation of a Lambda function that can operate on a DynamoDB Table
+- Usage of Dynamoose in a NodeJS Lambda Function
 
 ## Today's Outline
 
@@ -23,71 +25,72 @@ Description Here
 
 ## Notes
 
-### Web Sockets
+Creating a serverless API: Checklist
 
-A communication Protocol which provides bidirectional communication between the Client and the Server over a TCP connection, WebSocket remains open all the time so they allow the real-time data transfer. When clients trigger the request to the Server it does not close the connection on receiving the response, it rather persists and waits for Client or server to terminate the request.
+- [ ] IAM User role with access to Lambda and DynamoDB Full Access
+- [ ] Dynamo DB Table Created
+- [ ] Lambda function(s) that use Dynamoose to attach to the table
+  - [ ] Created with the correct IAM Role (Step 1)
+- [ ] API Endpoints that all the appropriate functions for each action type
 
-### Socket.io Library
+### Creating a Dynamo DB Table at AWS
 
-It is a library which enables real-time and full duplex communication between the Client and the Web servers. It uses the WebSocket protocol to provide the interface. Generally, it is divided into two parts, each of which use WebSockets, but also provide additional functionality such as broadcasting, namespacing, and other means of segmenting connected clients into groups.
+1. Open the DynamoDB Dashboard
+1. Choose `Create Table`
+1. Name your table
+1. Choose a field name to use as primary key
+   - Generally, "id", and you'll need to supply this when you add records
 
-- Client Side: it is the library that runs inside the browser or a "satellite" server that connects to a "hub"
-- Server Side: It is the library for Node.js that serves as "hub" or "traffic cop"
+### Working with Dynamo from Node
 
-### Connections
+When writing code that connects to a Dynamo Database, you'll need to know your AWS credentials and install `dynamoose` as a dependency
 
-With TCP, you connect directly to a server with a keep-alive type of connection.
+<https://dynamoosejs.com/getting_started/Introduction>
 
-With Socket.io, you connect to a server over HTTP. The session is "kept alive" through it's internal use of the WebSocket Protocol, with session information being preserved.
+#### Create a Schema with Dynamoose
 
-### Messaging
-
-Standard node events are sent with `emit()` and received with `on()` ... Socket.io uses the same methodology/terminology.
-
-In an event driven node app, the entire app is in memory, and (through a common event pool), all parts of your application can emit and hear events, communicating with each other.  However, no outside application can participate in these events natively.
-
-With Socket.io, the entire purpose is to have events shared between 'disconnected' participants.  Through a mediator (server), clients connect, emit events, and respond to events from the server.  A typical flow works like this:
-
-- Client Applications 1, 2, 3, x ... connect to a running Socket.io server
-  - Clients can join the common pool of connections or coalesce into groups/subgroups, if the server has been setup in this manner
-- Client Application 1 emits an event called 'speak' to the server, with the data 'Hello World'
-- Server has an `on('speak', (data) => {})` which "hears" that event
-- Upon processing the event, the server may elect to
-  - `broadcast()` the event itself or `emit()` an event of it's own.
-    - i.e. `socket.emit('heard', data)` or `socket.emit('speak',data)`
-  - Messages can be sent to individual clients, groups, or sub-groups of clients
-- Other client applications that have connected into the server may have a listener on that event type, can then "hear" it as well...
-  - i.e. `socket.on('incoming-message', text => console.log(text)`
-- **Not every client will have a listener for every event.**
-- **The server may not have a listener for every event a client sends.**
-
-Server
+This is just like Mongoose!
 
 ```javascript
-server.on('connection', (socket) => {
-  // When clients "emit" an event called 'some-event', this code on the server handles it
-  socket.on('some-event',  (payload) => {
-    // do something with the event
-  }
-})
+'use strict';
+
+const dynamoose = require('dynamoose');
+
+const friendsSchema = new dynamoose.Schema({
+  'id': String,
+  'name': String,
+  'phone': String,
+});
+
+module.exports = dynamoose.model('friends', friendsSchema);
 ```
 
-Client
+#### Write your Lambda Function (or any JS) to use your schema...
+
+Again, this is very similar to Mongoose and Mongo
 
 ```javascript
-// When anyone "emits" or "broadcasts" an event called 'cool-thing-happened', this code on the client handles it
-// Note: Not all clients will subscribe to that event. This is the whole point!
-client.on('cool-thing-happened', (payload) => {
-  // do something with the event
-})
+const contentModel = require('./curriculum.schema.js');
+
+async function findRecord(id) {
+  const content = await contentModel.query("id").eq(id).exec();
+  console.log(content[0]);
+}
+
+async function saveRecord(name, phone) {
+  const id = uuid();
+  const record = new contentModel({ id, name, phone });
+  const data = await record.save();
+  console.log(data);
+}
+
 ```
 
-### Broadcasting
 
-Servers or clients can "emit" or "broadcast" events in Socket.io by issuing either command with a payload
+### Create API Endpoints
 
-```client.emit('some-event', "I just wanted to say hello");```
+1. At API Gateway, create a new HTTP API
+1. Once created, define a route endpoint for each REST method
+1. Connect each endpoint to a lambda
 
-```socket.broadcast('cool-thing-happened', "WOW!");
-
-Refer to the [emit cheatsheet](https://socket.io/docs/emit-cheatsheet/) for examples and use cases.
+As your routes are invoked by users, those lambda's will fire, with the `event` receiving any POST or QUERY data

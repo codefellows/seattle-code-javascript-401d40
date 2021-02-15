@@ -1,6 +1,6 @@
-# Data Modeling & NoSQL Databases
+# Express REST API
 
-Data Modeling: The process of taking a real world or conceptual idea and encoding it into Javascript's built in data types. Models typically describe the physical characteristics (properties) and behaviors (methods) of an object in a way that you can write code that uses your models to problem solve and create applications.
+Express servers can quickly get big and out of control if you build them in one monolithic server file. There are many strategies for breaking the route handling logic into modules that "make sense" ... we'll be introducing the you to one such pattern today -- separate routers that contain all of the routing logic and handlers using `Express.router()`. In 301, we kept the route definitions in the server and imported the handler functions from other modules. There is more than one way to do it, and your applications can be seen through many lenses.
 
 ## Learning Objectives
 
@@ -8,22 +8,13 @@ Data Modeling: The process of taking a real world or conceptual idea and encodin
 
 #### Describe and Define
 
-- The role of data models
-- CRUD Operations
-- The "Repository" design pattern
-- Interfaces and Services
-- The differences between SQL and NoSQL Databases
-- The MongoDB Ecosystem
-- What is a Mongoose Schema
-- CRUD Functionality through Mongoose Methods
+- External (modular) routing with Express
 
 #### Execute
 
-- Model real world data
-- Create models with constraints, type checking, validity using Mongoose
-- Create an extensible CRUD interface and an implementation for a data model
-- Proficiency with the `mongo` CLI and basic commands
-- Testing code that relies on a Mongo Database server
+- Build a REST API server using Express
+- Use models and schemas to perform CRUD operations
+- Respond to request Queries and Parameters in routes
 
 ## Today's Outline
 
@@ -31,40 +22,95 @@ Data Modeling: The process of taking a real world or conceptual idea and encodin
 
 ## Notes
 
-### MongoDB Shell Commands
+### CRUD Operations with REST and Express
 
-| Command                  | Description                                                                 |
-| ------------------------ | --------------------------------------------------------------------------- |
-| `mongo`                  | Launch the mongo shell. Once in the shell, you should see `>`               |
-| `show dbs`               | Show all the databases                                                      |
-| `use db <name>`          | Use the database with name `<name>`                                         |
-| `show collections`       | Show all the collections in the current database                            |
-| `db.<collection>.find()` | List all the documents / records in the specified collection `<collection>` |
-| `db.<collection>.save()` | Save a new document / record to the specified collection `<collection>`     |
-| `db.<collection>.drop()` | Completely removes the specified collection `<collection>`                  |
+- CREATE
+  - `app.post('/resource')`
+- READ
+  - `app.get('/resource')`
+- UPDATE
+  - `app.put('/resource/:id')`
+- DESTROY
+  - `app.get('/resource/:id')`
 
-### A Mongoose "Schema"
+### Route Modules
+
+- Normal node modules
+- Require express just like your server
+- Instantiate `express.router` instead of `express()`
+- Export the route definitions
+- The main server/app should require your route an then `use()` them
+  - The server can prefix imported routes
+
+#### Router
 
 ```javascript
-const players = mongoose.Schema({
-  name: { type: String, required: true },
-  position: { type: String, required: true, uppercase: true, enum: ['P', 'C', '1B', '2B', '3B', 'SS', 'LF', 'RF', 'CF'] },
-  throws: { type: String, required: true, uppercase: true, enum: ['R', 'L'] },
-  bats: { type: String, required: true, uppercase: true, enum: ['R', 'L'] },
-  team: { type: String, required: true },
+const express = require('express');
+
+const router = express.Router();
+
+router.get('/mystuff', (req,res) => {
+  const out = {
+    fromParam: req.params.color,
+    fromReq: req.color,
+  };
+  res.send(out);
 });
+
+module.exports = router;
 ```
 
-### Mongoose Built-In CRUD Methods
-
-(All return promises)
+#### Server
 
 ```javascript
-    let newRecord = new schema(record);
-    return newRecord.save();
+const express = require('express');
+const app = express();
 
-    schema.findOneByIdAndDelete(id);
+// Bring in your custom routes
+const customRoutes = require('./routes.js');
 
-    schema(findById(id));
+// Integrate them into (use them) in the app
+app.use(customRoutes);
+```
 
+### Route Prefixes
+
+When you `use()` a router, you can prefix all of it's routes from the server.  In this example, we've prefixed the custom routes module with **/custom**, which means that calls to <http://servername.com/mystuff> will no longer work as before. You'll now have to use <http://servername.com/custom/mystuff>
+
+```javascript
+const express = require('express');
+const app = express();
+
+const customRoutes = require('./routes.js');
+
+// now, routes in the routes file will only work if /custom is in front of them.
+app.use('/custom', customRoutes);
+
+```
+
+### Classes
+
+Javascript Classes let you easily define an object's properties and methods in a self contained code block.
+
+```javascript
+class Car {
+
+  constructor(make, model, color) {
+    this.make = make;
+    this.model = model;
+    this.color = color;
+  }
+
+  drive() {
+    this.isMoving = true;
+  }
+
+  stop() {
+    this.isMoving = false;
+  }
+}
+
+const myCar = new Car('Chevrolet', 'Camaro', 'red');
+myCar.drive();
+myCar.stop();
 ```

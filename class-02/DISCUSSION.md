@@ -1,4 +1,4 @@
-# Readings: Classes, Inheritance, Functional Programming
+# Readings: Express
 
 Below you will find some reading material, code samples, and some additional resources that support today's topic and the upcoming lecture.
 
@@ -8,25 +8,20 @@ Review the Submission Instructions for guidance on completing and submitting thi
 
 In your reading notes page for this class, provide answers to the following prompts. Cite any external sources
 
-1. Why would you want to run JavaScript code outside of a browser?
-1. What is the difference between a module and a package?
-1. What does the node package manager do?
-1. Provide code snippets showing 3 different ways to export a function from a node module
+1. What's the difference between `PUT` and `PATCH`?
+1. Provide links to 3 services or tools that allow you to "mock" an API for development like `json-server`
+1. Compare and contrast Swagger and APIDoc.js
+1  Which HTTP status codes should be sent with each type of (un)successful API call?
+1. Compare and contrast SOAP and ReST
 
 ### Document the following Vocabulary Terms
 
-| Term                          |
-| ----------------------------- |
-| ecosystem                     |
-| Node.js                       |
-| V8 Engine                     |
-| module                        |
-| package                       |
-| node package manager (`npm`)  |
-| server                        |
-| environment                   |
-| interpreter                   |
-| compiler                      |
+| Term                            |
+| ------------------------------- |
+| Web Server                      |
+| Express                         |
+| Routing                         |
+| WRRC                            |
 
 ## Preview
 
@@ -38,12 +33,15 @@ Skim the following materials in preparation for the upcoming lecture. Note the f
 
 ### Preparation Materials
 
-- [TDD in JS](http://www.letscodejavascript.com/){:target="_blank"}
-- [javascript context tutorial](https://www.youtube.com/watch?v=fjJoX9F_F5g){:target="_blank"}
-- [MDN inheritance](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain){:target="_blank"}
-- [MDN this](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this){:target="_blank"}
-- [MDN - ES6 Classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes){:target="_blank"}
+- [An introduction to NodeJS and Express](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/Introduction){:target="_blank"}
+- [What is NPM?](https://docs.npmjs.com/getting-started/what-is-npm){:target="_blank"}
+- [What is TDD?](https://www.agilealliance.org/glossary/tdd/){:target="_blank"}
+- [CI/CD](https://www.youtube.com/watch?v=xSv_m3KhUO8){:target="_blank"}
 
-## Bookmark
+#### Bookmark
 
-- [jest docs](https://jestjs.io/docs/en/getting-started){:target="_blank"}
+- [nodeJS docs](https://nodejs.org/en/docs/){:target="_blank"}
+- [npm docs](https://docs.npmjs.com){:target="_blank"}
+- [express docs](https://expressjs.com/en/4x/api.html){:target="_blank"}
+- [http status codes](https://www.restapitutorial.com/httpstatuscodes.html){:target="_blank"}
+- [supertest](https://github.com/visionmedia/supertest){:target="_blank"}

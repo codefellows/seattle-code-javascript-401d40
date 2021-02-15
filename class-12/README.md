@@ -1,6 +1,6 @@
-# OAuth
+# Socket.io
 
-OAuth is "an open standard for access delegation" ... In other words, OAuth serves as a way to give users the ability to grant application access to services, without giving the application their password. Today, we will be giving our server the ability to "Login as You" at Google and other providers
+Description Here
 
 ## Learning Objectives
 
@@ -8,107 +8,118 @@ OAuth is "an open standard for access delegation" ... In other words, OAuth serv
 
 #### Describe and Define
 
-- The OAuth Process
-- The pros and cons of OAuth
-- Security concerns of OAuth
+- The OSI Networking Model
+- TCP and UDP Protocol
+- Stateful Networking
+- Packets
+- Buffered Transfer
+- Web Sockets
+- Socket.io
+- Network Events
 
 #### Execute
 
-- Implement OAuth
-- Prepare a "Suitability Recommendation" doc and presentation
+- Implement a standalone Socket.io server for handling events and real time messaging.
+- Use events to properly route incoming messages and payload
 
 ## Today's Outline
 
 <!-- To Be Completed By Instructor -->
 
-### Notes
+## Notes
 
-### How does OAuth work?
+### OSI Model
 
-Through a series of "handshakes", an application such as an Express Web Server asks the user if it's ok to login as them at some remote service, and then begins the process of authentication and access.
+| # | Layer | Protocol Data Unit | Function | Examples |
+| --- | ---- | ----- | ----- | ----- |
+| 7 | Application | Data | Height Level APIs | HTTP, IMAP, POP, SSH |
+| 6 | Presentation | Data | Data translating, including encryption, character encoding, and compression | Strings encoded with null terminated strings vs Strings defined by an Integer Length |
+| 5 | Session | Data | Manages a session though passing data back and fourth | NetBios and Remote Procedure Protocol (RPC) |
+| 4 | **Transport** | Segment / Datagram | Reliable transmission of data between points on a network | TCP and UDP |
+| 3 | Network | Packet | Managing the network through addressing, routing, and traffic control | IP and ICMP
+| 2 | Data Link | Frame | Reliable transmission of frames between to physical layer nodes | Ethernet and IEEE 802.11 wireless LAN |
+| 1 | Physical | bit | transmission and reception of raw data streams over a physical medium | USB, Bluetooth, Ethernet physical layer, SMB, Telephone network modem |
 
-1. Application spawns the "Login Using xxx" window, asking for specific permissions
-1. User Agrees to allow this to happen
-1. Remote service (i.e. Google) contacts the application with a one-time-use `Code`
-1. The application calls back to a special address on the remote service to exchange that `Code` for a `Token`
-1. Once the token has been granted, the application will then be able to contact the remote service, using that Token to access information on behalf of the user
+### Internet Protocol Suite
 
-**The `token`  is the user**
+The Internet Protocol Suite is the conceptual model for the protocols used by the internet. It is often referred to as **TCP/IP** because the IP and TCP were the original protocols in the suite. The Internet Protocol Suite is described using four layers - Link, Internet, Transport, and Application. Web developers often reference the Internet Protocol Suite model when discussing network communication and data exchange.
 
-### Access Code
+| Layer | Function | Examples |
+| ---- | ---- | ---- |
+| Application | Provides high level data exchange for use in user application development |  HTTP, SMTP, FTP, DHCP |
+| Transport | Provides process to process data exchange | TCP, UDP, µTP|
+| Internet | Maintains computer addressing and identification and manages packet routing | IPv4, IPv6, ICMP |
+| Link layer | Used to move packets between two different hosts | MAC, ARP, DSL, Ethernet |
 
-First the client needs to grant the application permission. To do this you need to provide an `<a>` tag that will take them to the service's authorization page. This `<a>` tag should pass the following information through a query string to the authorization server. Every service is slightly different in their specific requirements, but in some form or another, variables like these are part of this initial request
+### [TCP](https://www.ietf.org/rfc/rfc793.txt)
 
-- `response_type=code` indicates that your server wants to receive an authorization code
-- `client_id=<your client id>` tells the authorization server which app the user is granting access to
-- `redirect_uri=<your redirect uri>` tells the auth server which server endpoint to redirect to
-- `scope=<list of scopes>` tells the auth server what you want the user to give access to
-- `state=<anything you want>` a place where you can store info to pass to your server if you want
+The Transmission Control Protocol (TCP) is widely used by application layer protocols in the Internet Protocol Suite. TCP creates a two way communication between two hosts and provides reliable, ordered, and error checked byte streams between the applications. TCP data transfers manage network congestion and use flow control to limit the rate a sender transfers data to guarantee reliable delivery. Each IP packet between the hosts carries a single TCP Segment. A TCP segment is made up of header and data sections.
 
-### Access Token
+### Web Sockets
 
-If the users grants access to the application, the authorization server will redirect to a provided redirect URI callback with a "code". Once you have this code, you can exchange it for an access token by making a `POST` request to the authorization server and providing the following information:
+A communication Protocol which provides bidirectional communication between the Client and the Server over a TCP connection, WebSocket remains open all the time so they allow the real-time data transfer. When clients trigger the request to the Server it does not close the connection on receiving the response, it rather persists and waits for Client or server to terminate the request.
 
-- `grant_type=authorization_code`
-- `code=<the code your received`
-- `redirect_uri=REDIRECT_URI` must be same as the redirect URI your client provided
-- `client_id=<your client id>` tells the authorization server which application is making the requests
-- `client_secret=<your client secret>` authenticates that the application making the request is the application registered with the `client_id`
-- Once you get an access token, you can use it to make API calls to the service on behalf of that user
+### Socket.io Library
 
-### Code Sample
+It is a library which enables real-time and full duplex communication between the Client and the Web servers. It uses the WebSocket protocol to provide the interface. Generally, it is divided into two parts, each of which use WebSockets, but also provide additional functionality such as broadcasting, namespacing, and other means of segmenting connected clients into groups.
 
-In Express, we a route with OAuth middleware can be used to "kick off" the process, keeping your server code readable, and offloading the complexity to a module.
+- Client Side: it is the library that runs inside the browser or a "satellite" server that connects to a "hub"
+- Server Side: It is the library for Node.js that serves as "hub" or "traffic cop"
+
+### Connections
+
+With TCP, you connect directly to a server with a keep-alive type of connection.
+
+With Socket.io, you connect to a server over HTTP. The session is "kept alive" through it's internal use of the WebSocket Protocol, with session information being preserved.
+
+### Messaging
+
+Standard node events are sent with `emit()` and received with `on()` ... Socket.io uses the same methodology/terminology.
+
+In an event driven node app, the entire app is in memory, and (through a common event pool), all parts of your application can emit and hear events, communicating with each other.  However, no outside application can participate in these events natively.
+
+With Socket.io, the entire purpose is to have events shared between 'disconnected' participants.  Through a mediator (server), clients connect, emit events, and respond to events from the server.  A typical flow works like this:
+
+- Client Applications 1, 2, 3, x ... connect to a running Socket.io server
+  - Clients can join the common pool of connections or coalesce into groups/subgroups, if the server has been setup in this manner
+- Client Application 1 emits an event called 'speak' to the server, with the data 'Hello World'
+- Server has an `on('speak', (data) => {})` which "hears" that event
+- Upon processing the event, the server may elect to
+  - `broadcast()` the event itself or `emit()` an event of it's own.
+    - i.e. `socket.emit('heard', data)` or `socket.emit('speak',data)`
+  - Messages can be sent to individual clients, groups, or sub-groups of clients
+- Other client applications that have connected into the server may have a listener on that event type, can then "hear" it as well...
+  - i.e. `socket.on('incoming-message', text => console.log(text)`
+- **Not every client will have a listener for every event.**
+- **The server may not have a listener for every event a client sends.**
+
+### Server
 
 ```javascript
-app.get('/oauth', oauthMiddleware, (req,res) => {
-  // We'll only get in here if the oauthMiddleware produced an actual user
-  req.cookie('auth', token);
-  req.redirect('/');
+server.on('connection', (socket) => {
+  // When clients "emit" an event called 'some-event', this code on the server handles it
+  socket.on('some-event',  (payload) => {
+    // do something with the event
+  }
 })
 ```
 
-The middleware itself, should handle the handshake process, using all of the secrets and tokens from your provider.
+### Client
 
 ```javascript
-'use strict';
-
-const superagent = require('superagent');
-const users = require('./users.js');
-
-/*
-  Resources
-  https://developer.github.com/apps/building-oauth-apps/
-*/
-
-const tokenServerUrl = 'https://.../access_token';
-const remoteAPI = 'https://.../user';
-const CLIENT_ID = '';
-const CLIENT_SECRET = '';
-
-module.exports = async function authorize(req, res, next) {
-
-  try {
-    let code = req.query.code;
-
-    let remoteToken = await exchangeCodeForToken(code);
-
-    let remoteUser = await getRemoteUserInfo(remoteToken);
-
-    let [user, token] = await getUser(remoteUser);
-    // Put it on the request for other middleware/route to access
-    req.user = user;
-    req.token = token;
-
-    // Return to the middleware chain
-    next();
-  } catch (e) { next(`ERROR: ${e.message}`) }
-
-}
-
-async function exchangeCodeForToken(code) { ... }
-
-async function getRemoteUserInfo(token) { ... }
-
-async function getUser(remoteUser) { ... }
+// When anyone "emits" or "broadcasts" an event called 'cool-thing-happened', this code on the client handles it
+// Note: Not all clients will subscribe to that event. This is the whole point!
+client.on('cool-thing-happened', (payload) => {
+  // do something with the event
+})
 ```
+
+### Broadcasting
+
+Servers or clients can "emit" or "broadcast" events in Socket.io by issuing either command with a payload
+
+```client.emit('some-event', "I just wanted to say hello");```
+
+```socket.broadcast('cool-thing-happened', "WOW!");
+
+Refer to the [emit cheatsheet](https://socket.io/docs/emit-cheatsheet/) for examples and use cases.

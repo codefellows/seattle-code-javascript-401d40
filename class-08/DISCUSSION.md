@@ -1,4 +1,4 @@
-# Readings: Express Routing & Connected API
+# Reading: Access Control (ACL)
 
 Below you will find some reading material, code samples, and some additional resources that support today's topic and the upcoming lecture.
 
@@ -8,21 +8,19 @@ Review the Submission Instructions for guidance on completing and submitting thi
 
 In your reading notes page for this class, provide answers to the following prompts. Cite any external sources
 
-1. Name 3 real world use cases where you'd want to change the request with custom middleware
-1. True or false: The route handler is middleware?
-1. In what ways can a middleware function end the process and send data to the browser?
-1. At what point in the request lifecycle can you "inject" middleware?
-1. What can cause express to error with "Request headers sent twice, cannot start a second response"
+1. When is Basic Authorization used vs. Bearer Authorization?
+1. What does the JSON Web Token package do?
+1. What considerations should we make when creating and storing a SECRET?
 
 ### Document the following Vocabulary Terms
 
 | Term                            |
 | ------------------------------- |
-| Middleware                      |
-| Request Object                  |
-| Response Object                 |
-| Application Middleware          |
-| Routing Middleware              |
+| encryption                      |
+| token                           |
+| bearer                          |
+| secret                          |
+| JSON Web Token                  |
 
 ## Preview
 
@@ -34,5 +32,6 @@ Skim the following materials in preparation for the upcoming lecture. Note the f
 
 ### Preparation Materials
 
-- [using express routing](https://expressjs.com/en/guide/routing.html){:target="_blank"}
-- [express routing](https://scotch.io/tutorials/learn-to-use-the-new-router-in-expressjs-4){:target="_blank"}
+- [RBAC tutorial](https://www.youtube.com/watch?v=C4NP8Eon3cA){:target="_blank"}
+- [5 steps to RBAC](https://www.csoonline.com/article/3060780/security/5-steps-to-simple-role-based-access-control.html){:target="_blank"}
+- [wiki - RBAC](https://en.wikipedia.org/wiki/Role-based_access_control){:target="_blank"}

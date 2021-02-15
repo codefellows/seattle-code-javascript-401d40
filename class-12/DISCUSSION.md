@@ -1,4 +1,4 @@
-# Reading: OAuth
+# Readings: Socket.io
 
 Below you will find some reading material, code samples, and some additional resources that support today's topic and the upcoming lecture.
 
@@ -8,27 +8,26 @@ Review the Submission Instructions for guidance on completing and submitting thi
 
 In your reading notes page for this class, provide answers to the following prompts. Cite any external sources
 
-1. Why is authentication important?
-1. Why should we be careful about storing a user's password?
-1. What is the difference between hashing and encryption?
-1. What is the difference between encryption and encoding?
-1. What is a token used for?
+1. What is the benefit of transforming data into packets?
+1. UDP is often refereed to as a connectionless protocol. Why is this?
+1. Can a socket server application have multiple socket connections?
+1. Can a socket connection application be connected to multiple socket servers?
+1. Can an application be both a socket server and a socket connection?
 
 ### Document the following Vocabulary Terms
 
 | Term                            |
 | ------------------------------- |
-| authentication                  |
-| authorization                   |
-| encryption                      |
-| hashing                         |
-| session                         |
-| cookie                          |
-| token                           |
-| Basic Auth                      |
-| encoding                        |
-| secret                          |
-| cryptography                    |
+| Observer Pattern                |
+| Listener                        |
+| Event Handler                   |
+| Event Driven Programming        |
+| Event Loop                      |
+| Event Queue                     |
+| Call Stack                      |
+| Emit/Raise/Trigger              |
+| Subscribe                       |
+| database                        |
 
 ## Preview
 
@@ -40,10 +39,22 @@ Skim the following materials in preparation for the upcoming lecture. Note the f
 
 ### Preparation Materials
 
-- [What is OAuth Really All About?](https://www.youtube.com/watch?v=t4-416mg6iU){:target="_blank"}
-- [OAuth2 simplified](https://aaronparecki.com/oauth-2-simplified/){:target="_blank"}
-- [Build a Node API with OAuth](https://developer.okta.com/blog/2018/08/21/build-secure-rest-api-with-node){:target="_blank"}
+## Additional Resources
 
-#### Bookmark / Skim
+### Videos
 
-- [OAuth wiki](https://en.wikipedia.org/wiki/OAuth){:target="_blank"}
+- [OSI Model Explained](https://www.youtube.com/watch?v=vv4y_uOneC0)
+- [TCP Handshakes Explained](https://www.youtube.com/watch?v=xMtP5ZB3wSk)
+
+### Read/Skim
+
+- [Web Sockets](https://en.wikipedia.org/wiki/WebSocket){:target="_blank"}
+- [Socket.io Tutorial](https://www.tutorialspoint.com/socket.io/){:target="_blank"}
+- [Socket.io vs Web Sockets](https://www.educba.com/websocket-vs-socket-io/){:target="_blank"}
+
+### Bookmark
+
+- [Socket.io Documentation](https://socket.io/docs/){:target="_blank"}
+- [Socket.io Server API](https://socket.io/docs/server-api){:target="_blank"}
+- [Socket.io Client API](https://socket.io/docs/client-api){:target="_blank"}
+- [Socket Testing Tool](https://amritb.github.io/socketio-client-tool/){:target="_blank"}

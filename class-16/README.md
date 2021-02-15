@@ -1,6 +1,6 @@
-# Event Driven Applications
+# AWS: Cloud Servers
 
-Today, we will leverage the ability of Javascript to raise events, monitor events, and perform operations in response to events occurring.
+"The Cloud" is at the core of most internet applications, from distributed data, to servers, to games and hosting services like Heroku. How does it work? How can we leverage it?
 
 ## Learning Objectives
 
@@ -8,14 +8,20 @@ Today, we will leverage the ability of Javascript to raise events, monitor event
 
 #### Describe and Define
 
-- Events
-- ... specifically, the Node event system
-- Event driven architecture
+- "The Cloud"
+- "Containers"
+- Virtual Server "Instances"
+- CDNs and scaling horizontally
 
 #### Execute
 
-- Implement the Observer pattern using Publish/Subscribe
-- Create a modular, event based system.A
+Use "Elastic Beanstalk" to Deploy a NodeJS server to an EC2 instance at AWS
+
+This requires 2 parts:
+
+1. An "Environment" (container) for our application to run in
+1. The applicaation code itself to be deployed "into" the environment
+
 
 ## Today's Outline
 
@@ -23,52 +29,48 @@ Today, we will leverage the ability of Javascript to raise events, monitor event
 
 ## Notes
 
-### Event Driven Programming
+Elastic Beanstalk (EB) will automatically wire up essential AWS services to create and deploy a running application.
 
-Nearly everything in the world is "Event Driven"
+For Node.js applications, this is generally just going to be an EC2 server instance along with an S3 bucket that stores our files
 
-Humans respond to events billions of times every day. Your eyes react to light. You hit the brakes when the car in front of you slows down. Your skin forms a blister when burned.
+There are 2 ways to create a new application with EB, detailed below. Either way, all of your environments and applications will be available in the AWS Developer Console (GUI) for you to manage
 
-Machines can be event driven as well. Self driving cars can stay in their lane by "reading" the road lines in real time. Thermostats constantly turn the heat/air on or off in response to the temperature.
+### Creating an application with the Elastic Beanstalk GUI
 
-How can we leverage this in a software application?
+- Choose NodeJS as your platform
+- Create and upload a .zip file with your application source code
+  - Do not include `node_modules` or `package-lock.json`
 
-- Everything in JS is an object
-- Most actions in JS are event driven
-  - UI Events
-  - Express Routes
-  - (soon) Model Lifecycle Hooks
-  - (later) React ... everything
-- Now, we harness that power
+This will create your application and environment in one step, giving you a full GUI from where you can manage the app
 
-### Emitting Events
+![GUI](./assets/eb-gui.png)
 
-> **I just did something important and I want the whole world to know about it**
 
-`express-server.js`
+### Creating an application using the command line only
 
-```javascript
-let SQL = "DELETE FROM sometable WHERE id = $1"
-let values = [request.query.id];
-client.query(SQL, values)
-  .then( results => {
-    emit('delete', request.query.id);
-    res.send('Record Deleted')
-  });
-```
+First, ensure that you've installed the [aws cli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html) and the [aws eb](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html) command line utilities.
 
-> **Something happened that I need to care about and do something with**
+1. `eb init` - Initializes your folder as an Elastic Beanstal application
+   - Choose your region (`us-west-2`)
+   - Choose `[Create new Application]`
+     - Note: If you already have an application, you could also choose that to connect
+   - Answer the other questions as appropriate
+     - Choose Node.js at the correct version
+1. `eb create my-environment-name` - Create an "environment" for your app to reside in
+1. `eb deploy` to deploy your new application to your new environment
+   - You'll also use this whenever you make code changes
 
-`some-other-module.js`
 
-```javascript
-// Whenever the "delete" event has been emitted anywhere in my code base
-// Run this function
-events.on('delete', (data) => {
-    sendEmail({
-        to: 'admin@here.com',
-        subject: 'Someone deleted part of the database',
-        body: `Record id: ${data} was removed`
-    });
-});
-```
+You can then use some other `eb` commands to manage your apps
+
+- `eb open` to open your app in the browser
+- `eb list` to get a list of apps
+- `eb ssh` to ssh (login) to one of your apps
+- `eb health` to get a health check on  your environments
+
+### Auto-Deploy
+
+You can also use GitHub Actions to auto-deploy your source code to your EB Environment whenever you check in your code.
+
+> Browse the GitHub Marketplace for actions you can import into your repo. There are many
+

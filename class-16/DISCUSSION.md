@@ -1,4 +1,4 @@
-# Readings: Event Driven Applications
+# Readings: AWS: Cloud Servers
 
 Below you will find some reading material, code samples, and some additional resources that support today's topic and the upcoming lecture.
 
@@ -8,18 +8,18 @@ Review the Submission Instructions for guidance on completing and submitting thi
 
 In your reading notes page for this class, provide answers to the following prompts. Cite any external sources
 
-1. Why is access control important?
-1. Describe an application that would need access control.
-1. What is a role used for?
-1. Why is role based access control more scalable than discretionary or mandatory access control?
+1. What's the difference between a FIFO and a standard queue?
+1. How can the server be assured a message was properly received?
+1. What classic design pattern is best represented by event driven programming?
+1. How do you test an event driven system?
 
 ### Document the following Vocabulary Terms
 
 | Term                            |
 | ------------------------------- |
-| Authorization                   |
-| Role Based Access Control       |
-| Capabilities                    |
+| Server                          |
+| Pub/Sub                         |
+| WRRC                            |
 
 ## Preview
 
@@ -31,5 +31,8 @@ Skim the following materials in preparation for the upcoming lecture. Note the f
 
 ### Preparation Materials
 
-- [Event Driven Programming](https://alligator.io/nodejs/event-driven-programming/){:target="blank"}
-- [Node docs: events](https://nodejs.org/api/events.html){:target="_blank"}
+- [Virtual Machines](https://www.youtube.com/watch?v=yIVXjl4SwVo){:target="_blank"} (Bookmark This)
+- [VMS and the Cloud](https://www.youtube.com/watch?v=l0DfHUWMjsU){:target="_blank"} (Bookmark This)
+- [AWS EC2](https://aws.amazon.com/ec2/){:target="_blank"}
+- [EC2 For Humans](https://www.youtube.com/watch?v=lZMkgOMYYIg){:target="_blank"}
+- [Elastic Beanstalk](https://www.youtube.com/watch?v=SrwxAScdyT0){:target="_blank"}

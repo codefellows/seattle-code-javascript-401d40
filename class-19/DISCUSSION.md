@@ -1,4 +1,4 @@
-# Readings: Message Queues
+# Readings: AWS: Events
 
 Below you will find some reading material, code samples, and some additional resources that support today's topic and the upcoming lecture.
 
@@ -8,21 +8,19 @@ Review the Submission Instructions for guidance on completing and submitting thi
 
 In your reading notes page for this class, provide answers to the following prompts. Cite any external sources
 
-1. What does it mean that web sockets are bidirectional? Why is this useful?
-1. Does socket.io use HTTP? Why?
-1. What happens when a client emits an event?
-1. What happens when a server emits an event?
-1. What happens if a client "misses" an event?
-1. How can we mitigate this?
+1. What's the difference between a FIFO and a standard queue?
+1. How can the server be assured a message was properly received?
+1. What classic design pattern is best represented by event driven programming?
+1. How do you test an event driven system?
 
 ### Document the following Vocabulary Terms
 
 | Term                            |
 | ------------------------------- |
-| Web Socket                      |
-| Socket.io                       |
-| Client                          |
-| Server                          |
+| Serverless API                  |
+| Triggers                        |
+| Dynamo vs Mongo                 |
+| Dynamoose vs Mongoose           |
 
 ## Preview
 
@@ -34,6 +32,11 @@ Skim the following materials in preparation for the upcoming lecture. Note the f
 
 ### Preparation Materials
 
-- [Socket.io Chat Example](https://socket.io/get-started/chat/){:target="_blank}
-- [Rooms and Namespaces](https://socket.io/docs/rooms-and-namespaces/){:target="_blank"}
-- [Socket.io Emit Cheatsheet](https://socket.io/docs/emit-cheatsheet/){:target="_blank"}
+- [SQS and SNS Basics](https://www.youtube.com/watch?v=UesxWuZMZqI){:target="_blank"}
+- [AWS SQS vs SNS](https://medium.com/awesome-cloud/aws-difference-between-sqs-and-sns-61a397bf76c5){:target="_blank"}
+
+
+### Bookmark
+
+- [SNS Javascript SDK](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SNS.html)
+- [SQS Javascript SDK](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SQS.html)

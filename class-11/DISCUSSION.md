@@ -1,4 +1,4 @@
-# Readings: Authentication
+# Readings: Event Driven Applications
 
 Below you will find some reading material, code samples, and some additional resources that support today's topic and the upcoming lecture.
 
@@ -8,19 +8,18 @@ Review the Submission Instructions for guidance on completing and submitting thi
 
 In your reading notes page for this class, provide answers to the following prompts. Cite any external sources
 
-1. Explain what a "Singleton" is (in Computer Science terms)
-1. Explain how the Singleton pattern can be used with Node modules, specifically with classes
-1. If you were tasked with building a middleware system like Express uses, what approach might you take to construct/operate it?
+1. Why is access control important?
+1. Describe an application that would need access control.
+1. What is a role used for?
+1. Why is role based access control more scalable than discretionary or mandatory access control?
 
 ### Document the following Vocabulary Terms
 
 | Term                            |
 | ------------------------------- |
-| Router Middleware               |
-| Dynamic Module Loading          |
-| Singleton Pattern               |
-| CRUD -> REST Method Matches     |
-| Mock Testing                    |
+| Authorization                   |
+| Role Based Access Control       |
+| Capabilities                    |
 
 ## Preview
 
@@ -32,8 +31,5 @@ Skim the following materials in preparation for the upcoming lecture. Note the f
 
 ### Preparation Materials
 
-- [Securing Passwords](https://thehackernews.com/2014/04/securing-passwords-with-bcrypt-hashing.html){:target="_blank"}
-- [Basic Auth](https://en.wikipedia.org/wiki/Basic_access_authentication){:target="_blank"}
-- [Intro to JWT](https://jwt.io/introduction/){:target="_blank"}
-- [OWASP auth cheatsheet](https://www.owasp.org/index.php/Authentication_Cheat_Sheet){:target="_blank"}
-- [bcrypt docs](https://www.npmjs.com/package/bcrypt){:target="_blank"}
+- [Event Driven Programming](https://alligator.io/nodejs/event-driven-programming/){:target="blank"}
+- [Node docs: events](https://nodejs.org/api/events.html){:target="_blank"}

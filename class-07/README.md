@@ -1,6 +1,6 @@
-# Express
+# Bearer Authorization
 
-Express Server Mechanics: Routing, Middleware, and Approaches to Testing
+Using a "Bearer Token" to re-authenticate with a server following a successful login, or obtaining/generating a permanent key
 
 ## Learning Objectives
 
@@ -8,18 +8,15 @@ Express Server Mechanics: Routing, Middleware, and Approaches to Testing
 
 #### Describe and Define
 
-- Express Middleware
-- Express Routing
-- HTTP Status Codes
-- CRUD Operations using REST
+- Bearer Authentication
+- JSON Web Tokens (jwt)
+- Web Security
+- When to use Basic or Bearer Authentication
 
 #### Execute
 
-- Write an express API server
-  - Implement CRUD behavior through HTTP to a REST API
-- Incorporate application level middleware
-- Incorporate route level middleware
-- Properly test an `express` server
+- Create a Bearer Token Auth System
+- Secure tokens
 
 ## Today's Outline
 
@@ -27,99 +24,87 @@ Express Server Mechanics: Routing, Middleware, and Approaches to Testing
 
 ## Notes
 
-### Express Routing
+### Bearer Tokens
 
-- Event driven system
-  - `app.get('/thing', (req,res) => {})`
-  - This is the same pattern we see in Vanilla JS, jQuery
-  - 'When a get event happens in our server, on "/thing", run this function...'
-- The Request Object
-  - `(req,..)`
-  - /:parameters
-    - `app.get('/api/:thing',...)` = `req.params.thing`
-  - Query Strings
-    - `http://server/route?ball=round` = `req.query.ball`
-- The Response Object
-  - `(..., res)`
-  - Responsible for sending data back to the browser
-  - Has methods like `send()` and `status()` that Express uses to format the output to the browser properly
-    - Sends Headers
-      - Cookies
-      - Status Codes
+- Bearer Tokens are sent to the user/client after the initial `signin` process has completed.
+- Clients must make every subsequent request to the server with that token, in the header
+  - `Authorization: Bearer encoded.jsonwebtoken.here`
+- The server opens the token, does the re-authentication, and then grants or denies access
+- In express servers, this can be done in middleware, in conjunction with a user model
 
-### CRUD Operations with REST and Express
+  ```javascript
+  app.get('/somethingsecret', bearerToken, (req,res) => {
+    res.status(200).send('secret sauce');
+  });
 
-- CREATE
-  - `app.post('/resource')`
-- READ
-  - `app.get('/resource')`
-- UPDATE
-  - `app.put('/resource/:id')`
-- DESTROY
-  - `app.get('/resource/:id')`
+  function bearerToken( req, res, next ) {
+    let token = req.headers.authorization.split(' ').pop();
+    try {
+      if ( tokenIsValid(token) ) { next(); }
+    }
+    catch(e) { next("Invalid Token") }
+  }
 
-### Express Middleware
+  function tokenIsValid(token) {
+    let parsedToken = jwt.verify(token, SECRETKEY);
+    return Users.find(parsedToken.id);
+  }
+  ```
 
-- What does it do?
-  - A series of functions that the request "goes through"
-  - Each function receives `request`, `response` and `next` as parameters
-  - Application Middleware run on every route/request
-    - Error Handling, Logging, BODY Parsing
-  - Route Middleware runs on specific routes
-    - Are you logged in?
+### Mongoose Virtual Fields
 
-Middleware runs your code, and then runs the `next()` middleware in the series.
+Mongoose allows to add "Virtual" fields to our data model. A virtual field is a property of your data model that:
+
+1. Is defined by you, using a function
+1. Added to your data model every time a record is fetched from the database (automatically)
+1. Exists only in memory as you access your record
+1. Therefore ... virtual fields are never saved to the database
+
+For example, here's a simple data model that describes a piece of food:
 
 ```javascript
-function myLogger(req,res,next) {
-  console.log(req.method);
-  next(); // runs the next middleware in line
-}
-```
-
-If you call `next()` with an argument, it'll skip all remaining middleware and run your error handler, with that argument as the error
-
-```javascript
-function loggedIn(req,res,next) {
-  if( validUser ) { next(); } // Run the next middleware
-  else { next("you need to login"); } // Run the error handler, skipping all other middleware
-}
-```
-
-> Your route handler (your normal `(req,res)` function) is always the last middleware in the series!
-
-### Server Testing
-
-- Generally, avoid starting the actual server for testing
-- Instead, export your server as a module in a library
-- Then, you can use `supertest` or `supergoose` to run your tests
-  - This will hit your routes as though your server was running, without actually starting it
-
-server.js
-
-```javascript
-const express = require('express');
-const app = express();
-app.get('/data', (req,res) => res.json({}));
-// Export an object with the "app" in it.
-module.exports = {
-  start: () => app.listen(3000),
-  server: app
-}
-```
-
-server.test.js
-
-```javascript
-const supertest = require('supertest');
-const myServer = require('server.js');
-const client = supertest(myServer.server);
-describe('my server', () => {
-  test('can send data', () => {
-    return client.get('/data')
-      .then( response => {
-        expect(response.body).toBeDefined();
-      })
-  })
+const food = mongoose.Schema({
+  name: {type:"String", required:true},
+  calories: {type:"Number", required:true}
+  type: {type: "String", enum:["vegetable", "carb", "protien"]}
 })
 ```
+
+Assume you have an instance, such as a piece of bread:
+
+```json
+{
+  name: "Wonder Bread",
+  calories: 100,
+  type: "carb"
+}
+```
+
+In practice, you might want to calculate some value on each food item, based on it's properties. This is a value that has merit in the real world, but isn't something you need to store in the database. In fact, the user entering the data wouldn't actually know how to calculate this anyway.
+
+For our example, let's add a new virtual field called "points" which is an arbitrary figure that'll tell you how healthy something is.
+
+Add this to your mongoose food schema
+
+```javascript
+food.virtual('points').get( function() {
+  let points = this.calories;
+  if ( type === "carb" ) { points = this.calories * 10; }
+  else if ( type === "protien" ) { points = this.calories * .5; }
+  else if ( type === "vegetable" ) { points = this.calories * .2; }
+  return points;
+});
+```
+
+Now, anytime you get a record from mongoose, using `.find()`, `findOne()`, `findOneById()`, etc, the data that you can see on your record would be this:
+
+```json
+{
+  name: "Wonder Bread",
+  calories: 100,
+  type: "carb"
+  points: 1000
+}
+```
+
+If you were to save that record, points would not be stored, it's a calculated value, but you can use this feature of mongoose to create data fields on the fly that can help you to keep information accessible to your code, while not having to persist it.

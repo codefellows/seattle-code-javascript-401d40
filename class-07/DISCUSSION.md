@@ -1,4 +1,4 @@
-# Readings: Express
+# Reading: Bearer Authorization
 
 Below you will find some reading material, code samples, and some additional resources that support today's topic and the upcoming lecture.
 
@@ -8,20 +8,29 @@ Review the Submission Instructions for guidance on completing and submitting thi
 
 In your reading notes page for this class, provide answers to the following prompts. Cite any external sources
 
-1. What's the difference between `PUT` and `PATCH`?
-1. Provide links to 3 services or tools that allow you to "mock" an API for development like `json-server`
-1. Compare and contrast Swagger and APIDoc.js
-1  Which HTTP status codes should be sent with each type of (un)successful API call?
-1. Compare and contrast SOAP and ReST
+1. Write the following steps in the correct order:
+   - Receive access token
+   - Redirect to a third party authentication endpoint
+   - Register your application to get a client_id and client_secret
+   - Make a request to a third-party API endpoint
+   - Ask the client if they want to sign in via a third party
+   - Receive authorization code
+   - Make a request to the access token endpoint
+1. What can you do with an authorization code?
+1. What can you do with an access token?
+1. What's a benefit of using OAuth instead of your own basic authentication?
 
 ### Document the following Vocabulary Terms
 
 | Term                            |
 | ------------------------------- |
-| SOAP                            |
-| ReST Verbs                      |
-| CRUD Verbs                      |
-| Swagger                         |
+| Client ID                       |
+| Client Secret                   |
+| Authentication Endpoint         |
+| Access Token Endpoint           |
+| API Endpoint                    |
+| Authorization Code              |
+| Access Token                    |
 
 ## Preview
 
@@ -33,13 +42,10 @@ Skim the following materials in preparation for the upcoming lecture. Note the f
 
 ### Preparation Materials
 
-- [express middleware explained](https://www.youtube.com/watch?v=9HOem0amlyg){:target="_blank"}
-- [using express middleware](https://expressjs.com/en/guide/using-middleware.html){:target="_blank"}
-- [express middleware](https://www.tutorialspoint.com/expressjs/expressjs_middleware.htm){:target="_blank"}
-- [using express routing](https://expressjs.com/en/guide/routing.html){:target="_blank"}
+- [JWTs Explained](https://www.youtube.com/watch?v=926mknSW9Lo){:target="_blank"}
+- [Intro to JWT](https://jwt.io/introduction/)
+- [Are JWTs Secure?](https://stackoverflow.com/questions/27301557/if-you-can-decode-jwt-how-are-they-secure){:target="_blank"}
 
 #### Bookmark
 
-- [express middleware list](https://expressjs.com/en/resources/middleware.html){:target="_blank"}
-- [supertest](https://github.com/visionmedia/supertest){:target="_blank"}
-- [http status codes](https://www.restapitutorial.com/httpstatuscodes.html){:target="_blank"}
+- [npm jsonwebtoken docs](https://www.npmjs.com/package/jsonwebtoken){:target="_blank"}

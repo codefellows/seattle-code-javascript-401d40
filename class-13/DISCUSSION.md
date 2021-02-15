@@ -1,4 +1,4 @@
-# Reading: Bearer Authorization
+# Readings: Message Queues
 
 Below you will find some reading material, code samples, and some additional resources that support today's topic and the upcoming lecture.
 
@@ -8,29 +8,27 @@ Review the Submission Instructions for guidance on completing and submitting thi
 
 In your reading notes page for this class, provide answers to the following prompts. Cite any external sources
 
-1. Write the following steps in the correct order:
-   - Receive access token
-   - Redirect to a third party authentication endpoint
-   - Register your application to get a client_id and client_secret
-   - Make a request to a third-party API endpoint
-   - Ask the client if they want to sign in via a third party
-   - Receive authorization code
-   - Make a request to the access token endpoint
-1. What can you do with an authorization code?
-1. What can you do with an access token?
-1. What's a benefit of using OAuth instead of your own basic authentication?
+1. What does it mean that web sockets are bidirectional? Why is this useful?
+1. Does socket.io use HTTP? Why?
+1. What happens when a client emits an event?
+1. What happens when a server emits an event?
+1. What happens if a client "misses" an event?
+1. How can we mitigate this?
 
 ### Document the following Vocabulary Terms
 
 | Term                            |
 | ------------------------------- |
-| Client ID                       |
-| Client Secret                   |
-| Authentication Endpoint         |
-| Access Token Endpoint           |
-| API Endpoint                    |
-| Authorization Code              |
-| Access Token                    |
+| Socket                          |
+| Web Socket                      |
+| Socket.io                       |
+| Client                          |
+| Server                          |
+| OSI Model                       |
+| TCP Model                       |
+| TCP                             |
+| UDP                             |
+| Packets                         |
 
 ## Preview
 
@@ -42,10 +40,6 @@ Skim the following materials in preparation for the upcoming lecture. Note the f
 
 ### Preparation Materials
 
-- [JWTs Explained](https://www.youtube.com/watch?v=926mknSW9Lo){:target="_blank"}
-- [Intro to JWT](https://jwt.io/introduction/)
-- [Are JWTs Secure?](https://stackoverflow.com/questions/27301557/if-you-can-decode-jwt-how-are-they-secure){:target="_blank"}
-
-#### Bookmark
-
-- [npm jsonwebtoken docs](https://www.npmjs.com/package/jsonwebtoken){:target="_blank"}
+- [Socket.io Chat Example](https://socket.io/get-started/chat/){:target="_blank}
+- [Rooms and Namespaces](https://socket.io/docs/rooms-and-namespaces/){:target="_blank"}
+- [Socket.io Emit Cheatsheet](https://socket.io/docs/emit-cheatsheet/){:target="_blank"}

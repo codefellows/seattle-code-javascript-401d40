@@ -1,24 +1,16 @@
-# Module 2: DS&A / Recap
-
-Add the finishing touches to your Auth Server and integrate with your previously completed API Serve
-
-Implement a new Data Structure
+# Data Structures & Algorithms, Career Coaching
 
 ## Learning Objectives
 
-### Students will be able to
+### Data Structure: <!-- TBD: Fill In Name -->
 
-#### Describe and Define
+- Implement
+- Document
+- Test
 
-- Data Structure Implementation -  <!-- To Be Completed By Instructor -->
+### Career Coaching Workshop
 
-#### Execute
-
-- API Deployed with full features/functionality
-  - Consistent Model Interface
-  - Dynamic Model Routing
-  - Fully Tested
-  - Fully Documented
+<!-- Summary To Be Completed By Instructor -->
 
 ## Today's Outline
 

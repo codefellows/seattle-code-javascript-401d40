@@ -1,16 +1,16 @@
-# Module 5: DS&A / Recap
-
-Recap module 5 concepts and dive into DS&A by implementing a new Data Structure
+# Data Structures & Algorithms, Career Coaching
 
 ## Learning Objectives
 
-### Students will be able to
+### Data Structure: <!-- TBD: Fill In Name -->
 
-#### Describe and Define
+- Implement
+- Document
+- Test
 
-- Data Structure Implementation -  <!-- To Be Completed By Instructor -->
+### Career Coaching Workshop
 
-#### Execute
+<!-- Summary To Be Completed By Instructor -->
 
 ## Today's Outline
 
