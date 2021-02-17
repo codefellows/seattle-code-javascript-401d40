@@ -6,10 +6,11 @@ const request = supertest(server.app);
 
 
 describe('Server tests', () => {
-  it('should pass a 500 error when no name is attached to the url', async () => {
-    const response = await request.get('/person');
+  it('should pass a 500 error with an invalid person ID', async () => {
+    const response = await request.get('/person/wrong');
 
     expect(response.status).toEqual(500);
+    expect(response.text).toEqual('Invalid person ID');
   });
 
     it('should pass a 404 error when no route is triggered', async () => {

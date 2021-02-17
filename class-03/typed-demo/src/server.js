@@ -5,14 +5,13 @@ const app = express();
 
 // 2 middlewares that perform specific server bahaviors
 const logger = require('./middlewares/logger.js');
-const validator = require('./middlewares/validator.js');
 const FiveHundred = require('./error-handlers/500.js');
 const FourHundred = require('./error-handlers/404.js');
 
 const personRouter = require('./routes/person.js');
 
 app.use(express.json());
-app.use(logger)
+app.use(logger);
 app.use(personRouter);
 
 //define our GET on '/person' endpoint????

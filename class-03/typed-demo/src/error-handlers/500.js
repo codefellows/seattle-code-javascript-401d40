@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(err, response, request, next) {
+module.exports = function(err, request, response, next) {
   console.log('Error found');
 
   const error = err.message ? err.message :  err;
