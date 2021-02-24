@@ -2,7 +2,7 @@
 
 ## Challenge
 
-Write a function that takes a linked list as an input and returns the number of uniqie values stored in the linked list as it's output.
+Write a function that takes a linked list as an input and returns the number of unique values stored in the linked list as it's output.
 
 ## Sample Inputs and Outputs
 
