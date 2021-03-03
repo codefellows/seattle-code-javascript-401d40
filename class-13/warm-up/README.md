@@ -1,4 +1,4 @@
-# Warm Up - Implement and Order Queue System
+# Warm Up - Implement an Order Queue System
 
 ## Overview
 
