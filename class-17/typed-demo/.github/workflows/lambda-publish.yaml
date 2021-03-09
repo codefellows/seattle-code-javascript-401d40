@@ -1,0 +1,43 @@
+name: aws-deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy_source:
+    name: build and deploy lambda
+    strategy:
+      matrix:
+        node-version: [14.x]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: cd functions && npm install
+      - name: Zip Functions
+        run: |
+          cd functions &&
+          zip -rp ./adding.zip adding.js lib node_modules &&
+          zip -rp ./images.zip image.js lib node_modules
+      - name: deploy adding to aws lambda
+        uses: appleboy/lambda-action@master
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: ${{ secrets.AWS_REGION }}
+          function_name: adding
+          zip_file: ./functions/adding.zip
+      - name: deploy images to aws lambda
+        uses: appleboy/lambda-action@master
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: ${{ secrets.AWS_REGION }}
+          function_name: images
+          zip_file: ./functions/images.zip
