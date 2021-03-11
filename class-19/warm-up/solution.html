@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #menu,
+    #hamburger {
+      position: absolute;
+      right: 0;
+      padding-right: 20px;
+      transition: right 0.5s ease-in-out;
+    }
+
+    #hamburger {
+      display: none;
+    }
+
+    @media (max-width: 400px) {
+      #menu {
+        right: -200px;
+      }
+
+      #hamburger {
+        display: block;
+      }
+
+      #close {
+        display: none;
+      }
+
+      #open:target {
+        display: none;
+      }
+
+      #open:target+#close {
+        display: block
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <button id="hamburger">
+      <a id="open" href="#open">hamburger</a>
+      <a id="close" href="#close">X</a>
+    </button>
+    <nav id="menu">
+      <ul>
+        <li>
+          Item One
+        </li>
+        <li>
+          Item Two
+        </li>
+        <li>
+          Item Three
+        </li>
+        <li>
+          Item Four
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <h1>Some content goes here.</h1>
+  </main>
+  <script>
+
+  </script>
+</body>
+
+</html>
