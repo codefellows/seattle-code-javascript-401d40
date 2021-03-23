@@ -1,0 +1,95 @@
+* {
+  box-sizing: border-box;
+}
+
+.App-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 20vh;
+  margin: 6px auto;
+  padding: 12px;
+  background-color: #ddd;
+  button {
+    margin-top: 8px;
+  }
+}
+
+.history-frame {
+  border: 1px #000 solid;
+  margin-top: 12px;
+  padding: 6px;
+  border-radius: 8px;
+  box-shadow: 4px 4px 6px #222;
+  height: 53.5vh;
+  width: 40vw;
+  text-align: left;
+  overflow: hidden;
+  li {
+    list-style: none;
+    margin: 2px auto;
+  }
+}
+
+.urlEntry {
+    width: 70%;
+    margin-top: 8px;
+}
+
+.history-title {
+  margin-top: 0;
+  text-align: center;
+}
+
+
+.plain {
+  margin: 2px 4px;
+  border-radius: 4px;
+  padding: 2px 3px;
+}
+
+.goButton {
+  float: right;
+  padding: 6px 10px;
+}
+
+.goButton:hover {
+  transition: .5s;
+  transform: scale(1.25);
+}
+
+.getButton {
+  margin: 2px 4px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  padding: 2px 3px;
+  background-color: blue;
+  color: #FFF;
+}
+
+.postButton {
+  margin: 2px 4px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  padding: 2px 3px;
+  background-color: green;
+  color: #FFF;
+}
+
+.putButton {
+  margin: 2px 4px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  padding: 2px 3px;
+  background-color: blueviolet;
+  color: #FFF;
+}
+
+.deleteButton {
+  margin: 2px 4px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  padding: 2px 3px;
+  background-color: red;
+  color: #FFF;
+}
