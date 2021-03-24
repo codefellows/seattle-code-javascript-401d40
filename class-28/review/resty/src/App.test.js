@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
 import App from './App.js';
@@ -20,8 +20,8 @@ describe('testing the application component', () => {
 
     expect(results).toBeInTheDocument();
 
-    let bulbasaur = await screen.findByText('bulbasaur');
+    let bulbasaur = await screen.findByText(/bulbasaur/);
 
-    expect(screen.queryByText(bulbasaur)).toBeInTheDocument();
+    expect(bulbasaur).toBeInTheDocument();
   });
 });
