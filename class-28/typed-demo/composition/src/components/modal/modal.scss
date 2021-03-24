@@ -1,0 +1,16 @@
+.modal {
+  position: absolute;
+  width: 400px;
+  top: 50px;
+  left: calc(50% - 200px);
+  background-color: white;
+  border-radius: 10px;
+}
+
+.modal-background {
+  position:absolute;
+  top:0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(138, 138, 138, 0.5);
+}
