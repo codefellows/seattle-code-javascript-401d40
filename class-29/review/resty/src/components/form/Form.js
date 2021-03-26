@@ -5,9 +5,7 @@ class Form extends React.Component {
     super(props);
     this.state = {
       url: '',
-      method: '',
-      body: {},
-      error: {},
+      method: ''
     }
   }
 
@@ -19,14 +17,21 @@ class Form extends React.Component {
   handleSubmit = async (e) => {
     e.preventDefault();
 
-    let request = await fetch(this.state.url, { method: this.state.method });
-    let data = await request.json();
+    let data = null;
+    let error = null;
+
+    try {
+      let request = await fetch(this.state.url, { method: this.state.method });
+      data = await request.json();
+    } catch (e) {
+      error = e;
+    }
 
     this.props.handleRequest({
       url: this.state.url,
       method: this.state.method,
       body: data,
-      error: null,
+      error: error,
     });
   }
 
