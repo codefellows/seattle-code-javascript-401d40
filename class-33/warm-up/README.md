@@ -23,6 +23,6 @@ test.root.children[2] = new Node({type: 'object'}, test.k);
 
 text.traverseIteratively(console.log) // log to the console => 10, 12, 'string', {type: "object"}
 
-text.traverseIteratively(console.log) // log to the console => 10, 12, 'string', {type: "object"}
+text.traverseRecursively(console.log) // log to the console => 10, 12, 'string', {type: "object"}
 
 ```
