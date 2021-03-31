@@ -1,0 +1,15 @@
+{
+  "name": "warm-up",
+  "version": "1.0.0",
+  "description": "Rotators / Carousels are a classic on modern websites. Often used in the \"Hero\" portion of the website for big bold calls to action, they're also quite useful on mobile to give the users a \"swipe\" interface to go through items in a familiar UX",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --verbose"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^26.6.3"
+  }
+}
