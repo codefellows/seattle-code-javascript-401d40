@@ -15,8 +15,8 @@ describe('Testing the Book module', () => {
     testBook.addParagraph('1.1', text1);
     testBook.addParagraph('1.1', text2);
 
-    let first = testBook.search('1.1.1');
-    let second = testBook.search('1.1.2');
+    let first = testBook.findParagraph('1.1.1');
+    let second = testBook.findParagraph('1.1.2');
 
     expect(first).toEqual(text1);
     expect(second).toEqual(text2);
