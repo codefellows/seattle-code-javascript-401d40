@@ -1,0 +1,15 @@
+{
+  "name": "warm-up",
+  "version": "1.0.0",
+  "description": "Abstraction of tree behavior to represent he organization of Book materials.  includes Chapters, Sections, and Paragraphs as Book Nodes",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --verbose"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^26.6.3"
+  }
+}
