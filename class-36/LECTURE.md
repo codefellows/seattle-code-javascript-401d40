@@ -1,5 +1,7 @@
 # Class 36: Intro to Redux
 
+[Whiteboard Diagrams](https://projects.invisionapp.com/freehand/document/tXMIMCuDQ)
+
 ## Announcements
 
 * Second half instructor: check in with all of you this week!
