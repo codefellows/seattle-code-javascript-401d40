@@ -12,7 +12,7 @@ Once the algorithm is completed, provide a way to validate that your solution wo
 
 ### Input
 
-  ![tree](/assets/tree.png)
+  ![tree](./assets/tree.png)
 
   Sum: 32
 
