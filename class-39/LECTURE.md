@@ -50,7 +50,7 @@ function render(copy, character, paste) {
 
 Using Redux Thunk to make ajax calls.
 
-- How did thunks go for labs?
+* How did thunks go for labs?
 
 ## Why is Redux so difficult
 
