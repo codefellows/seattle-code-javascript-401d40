@@ -11,8 +11,6 @@
 
 ## Warm-Up Exercise
 
-**Before You Start** ... complete the [daily warm-up](../warmup-daily)
-
 The goal for this exercise is to build up muscle memory on basic server setup and operations. You'll be tasked with creating servers many times during your career and in projects. This should be the type of thing that you can construct nearly blindfolded, to give yourself a stable starting point from which to do your actual work.
 
 - Build an express web server. From Scratch. By Hand.
